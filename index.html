@@ -82,14 +82,6 @@
       gap: 10px;
     }
 
-    .brand-logo {
-      width: 30px;
-      height: 30px;
-      object-fit: contain;
-      flex-shrink: 0;
-      opacity: 0.8;
-    }
-
     .brand-mark {
       font-size: 11px;
       font-weight: 800;
@@ -282,7 +274,7 @@
     textarea {
       overflow: hidden;
       resize: vertical;
-      min-height: 92px;
+      min-height: 180px; /* 92px에서 180px로 늘려 약 5줄 이상 추가 확보 */
     }
 
     @page {
@@ -342,6 +334,7 @@
       <div><label class="block text-xs text-slate-500 mb-1">한줄 메모</label><input type="text" id="memo" value="훈련 준비성은 좋고, 실수 후 감정 전환은 조금 더 연습이 필요합니다." class="w-full rounded-lg border border-slate-200 bg-slate-50 p-2.5 text-sm"></div>
     </div>
 
+    <!-- 5대 핵심 지표 입력 -->
     <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4">
       <div><label class="block text-xs text-slate-500 mb-1">경기 긴장 관리</label><input type="number" id="core-pressure" value="4.1" min="0" max="6" step="0.1" class="w-full rounded-lg border border-slate-200 bg-slate-50 p-2.5 text-sm"></div>
       <div><label class="block text-xs text-slate-500 mb-1">주변 지원 환경</label><input type="number" id="core-support" value="4.8" min="0" max="6" step="0.1" class="w-full rounded-lg border border-slate-200 bg-slate-50 p-2.5 text-sm"></div>
@@ -350,6 +343,7 @@
       <div><label class="block text-xs text-slate-500 mb-1">집중 자기조절력</label><input type="number" id="core-focus" value="4.2" min="0" max="6" step="0.1" class="w-full rounded-lg border border-slate-200 bg-slate-50 p-2.5 text-sm"></div>
     </div>
 
+    <!-- 8대 세부 지표 입력 -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
       <div><label class="block text-xs text-slate-500 mb-1">경기 안정성</label><input type="number" id="detail-stability" value="4.1" min="0" max="6" step="0.1" class="w-full rounded-lg border border-slate-200 bg-slate-50 p-2.5 text-sm"></div>
       <div><label class="block text-xs text-slate-500 mb-1">심리 안정성</label><input type="number" id="detail-psychology" value="3.9" min="0" max="6" step="0.1" class="w-full rounded-lg border border-slate-200 bg-slate-50 p-2.5 text-sm"></div>
@@ -369,7 +363,6 @@
         <div class="page-header">
           <div class="report-header">
             <div class="brand-wrap">
-              <img src="logo.png" alt="M-REPORT Logo" class="brand-logo" />
               <div>
                 <div class="brand-mark">M-REPORT</div>
                 <div class="report-title">멘탈 종합결과 리포트</div>
@@ -413,13 +406,13 @@
             </div>
             <div class="card p-3">
               <div class="text-[11px] font-semibold text-slate-400 mb-2">가장 돋보이는 영역</div>
-              <div class="text-lg font-bold text-slate-800 leading-tight" id="topMetric">심상 훈련 활용</div>
-              <div class="mt-2 text-xs text-primary-700 bg-primary-50 w-max px-2 py-0.5 rounded-md" id="topMetricScore">5.0점</div>
+              <div class="text-lg font-bold text-slate-800 leading-tight" id="topMetric">-</div>
+              <div class="mt-2 text-xs text-primary-700 bg-primary-50 w-max px-2 py-0.5 rounded-md" id="topMetricScore">-점</div>
             </div>
             <div class="card p-3">
               <div class="text-[11px] font-semibold text-slate-400 mb-2">우선 지원 포인트</div>
-              <div class="text-lg font-bold text-slate-800 leading-tight" id="supportMetric">실패 회복력</div>
-              <div class="mt-2 text-xs text-amber-700 bg-amber-50 w-max px-2 py-0.5 rounded-md" id="supportMetricScore">3.7점</div>
+              <div class="text-lg font-bold text-slate-800 leading-tight" id="supportMetric">-</div>
+              <div class="mt-2 text-xs text-amber-700 bg-amber-50 w-max px-2 py-0.5 rounded-md" id="supportMetricScore">-점</div>
             </div>
             <div class="card p-3">
               <div class="text-[11px] font-semibold text-slate-400 mb-2">한줄 해석</div>
@@ -431,31 +424,31 @@
             <div class="card p-4">
               <div class="flex justify-between items-center mb-3">
                 <h3 class="section-title mb-0">5대 핵심 멘탈지수</h3>
-                <span class="tag-soft">6점 만점 기준</span>
+                <span class="tag-soft">*6점 만점 기준</span>
               </div>
               <div class="canvas-box-lg"><canvas id="radarChart"></canvas></div>
             </div>
 
             <div class="card p-4 flex flex-col justify-between">
               <div>
-                <h3 class="section-title">보호자에게 드리는 종합 코멘트</h3>
+                <h3 class="section-title">부모님에게 드리는 종합 코멘트</h3>
                 <div class="soft-card p-3 mb-3">
                   <p class="text-[13px] text-slate-700 leading-relaxed" id="mainComment"></p>
                 </div>
                 <div class="grid grid-cols-2 gap-2 mb-3">
                   <div class="bg-primary-50 border border-primary-100 rounded-xl p-3">
-                    <div class="text-[10px] font-bold text-primary-600 mb-1">강점의 방향</div>
+                    <div class="text-[10px] font-bold text-primary-600 mb-1">강점</div>
                     <p class="text-[12px] text-slate-700 leading-relaxed" id="strengthDirection"></p>
                   </div>
                   <div class="bg-amber-50 border border-amber-100 rounded-xl p-3">
-                    <div class="text-[10px] font-bold text-amber-600 mb-1">도와줄 방향</div>
+                    <div class="text-[10px] font-bold text-amber-600 mb-1">보완 부분</div>
                     <p class="text-[12px] text-slate-700 leading-relaxed" id="supportDirection"></p>
                   </div>
                 </div>
               </div>
               <div class="bg-slate-800 text-white rounded-2xl p-4 border border-slate-700">
                 <div class="text-xs text-slate-300 mb-1">핵심 메시지</div>
-                <p class="text-sm leading-relaxed font-medium">점수는 아이를 평가하는 도장이 아니라, <strong>지금 어떤 방식으로 응원하면 더 잘 자랄지 보여주는 지도</strong>에 가깝습니다.</p>
+                <p class="text-sm leading-relaxed font-medium">영역벽 점수는 아이를 평가하는 고정된 값이 아닙니다. <strong>아이의 멘탈적인 특징과 유형에 대해 보여주는 상세 지도</strong>에 가깝습니다.</p>
               </div>
             </div>
           </div>
@@ -481,10 +474,9 @@
         <div class="page-header">
           <div class="report-header">
             <div class="brand-wrap">
-              <img src="logo.png" alt="M-REPORT Logo" class="brand-logo" />
               <div>
                 <div class="brand-mark">M-REPORT</div>
-                <div class="report-title">핵심 5영역 해석</div>
+                <div class="report-title">5대 핵심영역 해석</div>
                 <div class="report-subtitle">PCDEQ-based Core Mental Factors</div>
               </div>
             </div>
@@ -494,7 +486,7 @@
 
         <div class="page-content">
           <div class="card p-4">
-            <h3 class="section-title">핵심 5영역 (PCDEQ 기반)</h3>
+            <h3 class="section-title">핵심 5영역</h3>
             <p class="text-[12px] text-slate-500 mb-3">이 5영역은 경기와 훈련 속에서 준비, 긴장, 회복, 집중을 어떻게 다루는지 보여줍니다. 점수는 평가가 아니라 지원 방향을 알려주는 힌트입니다.</p>
             <div id="coreCards" class="space-y-2"></div>
           </div>
@@ -515,10 +507,9 @@
         <div class="page-header">
           <div class="report-header">
             <div class="brand-wrap">
-              <img src="logo.png" alt="M-REPORT Logo" class="brand-logo" />
               <div>
                 <div class="brand-mark">M-REPORT</div>
-                <div class="report-title">스포츠심리 세부지표</div>
+                <div class="report-title">8대 세부지표 해석</div>
                 <div class="report-subtitle">Detailed Mental Indicators</div>
               </div>
             </div>
@@ -529,7 +520,7 @@
         <div class="page-content">
           <div class="card p-4">
             <h3 class="section-title">스포츠심리 세부지표</h3>
-            <p class="text-[12px] text-slate-500 mb-3">세부지표는 실제 훈련과 경기 안에서 어떤 심리 기술이 상대적으로 잘 작동하고 있는지를 더 촘촘하게 보여줍니다.</p>
+            <p class="text-[12px] text-slate-500 mb-3">세부지표는 실제 경기와 훈련 안에서 어떤 심리 기술이 상대적으로 잘 작동하고 있는지를 더욱 촘촘하게 보여줍니다.</p>
             <div id="detailBlocksPage3" class="space-y-3"></div>
           </div>
         </div>
@@ -537,7 +528,7 @@
         <div class="page-footer">
           <div class="footer-note">
             <div class="footer-copy">© juniorgoldenage</div>
-            <div class="tiny text-right">약한 부분은 부족함이 아니라 지금 더 정성껏 도와줄 수 있는 영역입니다. 아이의 시선에서 천천히 강화해 가는 것이 중요합니다.</div>
+            <div class="tiny text-right">약한 부분은 부족함이 아니라 보완하면 더 발전할 수 있는 영역입니다. 아이의 시선에서 꾸준히 강화해 가는 것이 중요합니다.</div>
           </div>
         </div>
       </div>
@@ -549,7 +540,6 @@
         <div class="page-header">
           <div class="report-header">
             <div class="brand-wrap">
-              <img src="logo.png" alt="M-REPORT Logo" class="brand-logo" />
               <div>
                 <div class="brand-mark">M-REPORT</div>
                 <div class="report-title">스포츠심리 세부지표</div>
@@ -582,7 +572,6 @@
         <div class="page-header">
           <div class="report-header">
             <div class="brand-wrap">
-              <img src="logo.png" alt="M-REPORT Logo" class="brand-logo" />
               <div>
                 <div class="brand-mark">M-REPORT</div>
                 <div class="report-title">부모님 가이드</div>
@@ -594,6 +583,7 @@
         </div>
 
         <div class="page-content">
+          <!-- 핵심 & 세부 13개 지표 중 가장 낮은 2개 자동 생성 영역 -->
           <div id="weakGuides"></div>
 
           <div class="grid grid-cols-2 gap-3 mt-3">
@@ -630,7 +620,6 @@
         <div class="page-header">
           <div class="report-header">
             <div class="brand-wrap">
-              <img src="logo.png" alt="M-REPORT Logo" class="brand-logo" />
               <div>
                 <div class="brand-mark">M-REPORT</div>
                 <div class="report-title">부모님 가이드</div>
@@ -667,7 +656,7 @@
           </div>
 
           <div class="card p-4 bg-sky-50 border-sky-100">
-            <h3 class="section-title">마지막 메시지</h3>
+            <h3 class="section-title">스포츠 주치의 메시지</h3>
             <textarea id="editableClosing" class="w-full bg-white border border-sky-200 rounded-xl p-3 text-[12px] text-slate-700 leading-relaxed">멘탈은 타고난 성격 하나로 결정되지 않습니다. 아이가 어떤 말을 듣고, 어떤 경험을 반복하고, 실패 뒤에 어떤 표정을 마주하느냐에 따라 계속 바뀝니다. 오늘의 점수는 고정된 결과가 아니라, 내일 더 좋아질 출발선입니다.</textarea>
           </div>
         </div>
@@ -688,40 +677,40 @@
       { min: 4.3, label: '양호', color: '#10b981', bg: '#ecfdf5', border: '#a7f3d0' },
       { min: 3.6, label: '보통', color: '#f59e0b', bg: '#fffbeb', border: '#fde68a' },
       { min: 3.0, label: '주의', color: '#ef4444', bg: '#fef2f2', border: '#fecaca' },
-      { min: 0, label: '강화 필요', color: '#64748b', bg: '#f8fafc', border: '#cbd5e1' }
+      { min: 0, label: '보완 필요', color: '#64748b', bg: '#f8fafc', border: '#cbd5e1' }
     ];
 
     const CORE_GUIDE = {
       pressure: {
-        name: '경기 긴장 관리',
+        name: '수행 불안(경기 긴장도)',
         meaning: '압박 상황에서도 마음을 정리하고 플레이를 이어가는 힘입니다.',
-        improve: '경기 전 루틴과 실수 후 “다음 공” 키워드를 반복하면 도움이 됩니다.'
+        improve: '걱정을 멈추는 법과 평정심을 유지하는 훈련이 필요합니다. 본인만의 마음의 안정을 찾는 루틴을 만들고, ‘다음 볼 하나 집중!’과 같은 짧은 키워드를 반복하면 도움이 됩니다'
       },
       support: {
-        name: '주변 지원 환경',
-        meaning: '코치, 부모, 팀 동료와의 관계 속에서 심리적 안정감을 느끼는 정도입니다.',
-        improve: '결과보다 감정을 먼저 듣고 작은 고민도 말할 수 있는 분위기를 만들어 주세요.'
+        name: '사회적 도움 활용',
+        meaning: '어려움이 생겼을 때, 주변(코치, 부모, 친구)의 도움을 적절히 구하는 능력입니다.',
+        improve: '아이가 경기 결과보다도 경기에서 들었던 감정, 생각을 스스로 편하게 설명할 수 있고, 부모님도 적극 공감할 수 있는 분위기를 만들어 주는 것이 좋습니다.'
       },
       preparation: {
         name: '경기 준비 능력',
         meaning: '목표 설정과 이미지 트레이닝처럼 경기 전 준비의 질과 관련됩니다.',
-        improve: '훈련 전 목표 1개, 훈련 후 잘된 점 1개를 짧게 정리해 보세요.'
+        improve: '경기전 목표 구체적으로 잡기, 목표를 실천하는 스스로의 멋진 모습 상상하기, 매일 잘 된 점 1개 짧게 정리해두면 강점이 선명해집니다.'
       },
       recovery: {
         name: '실수 후 회복력',
         meaning: '실수 뒤 감정에 오래 머물지 않고 다시 경기로 돌아오는 힘입니다.',
-        improve: '실수 직후 바로 다음 위치로 움직이는 행동 루틴을 정해 두는 것이 좋습니다.'
+        improve: '실수 직후 뇌가 ‘눈치’모드로 전환되기 전 강제로 다음 임무를 수행하도록 합니다. 실수 후 즉시 공이나 다음 수비 대상을 3초간 강하게 응시하는 훈련이 효과적입니다.'
       },
       focus: {
-        name: '집중 자기조절력',
+        name: '자기조절 집중력',
         meaning: '감정과 충동이 흔들릴 때 다시 해야 할 것에 집중하는 힘입니다.',
-        improve: '시선은 공, 몸은 다음 위치, 마음은 한 문장으로 정리하는 루틴이 좋습니다.'
+        improve: '감정이 격해질 때 3초간 숨을 고르며 스스로를 다스립니다. 어떤 순간에도 팀과 약속한 전술적 원칙과 포지션을 끝까지 책임지는 주도적인 습관을 기르는 것이 중요합니다.'
       }
     };
 
     const DETAIL_META = {
       stability: {
-        name: '경기 안정성',
+        name: '경기 안정성 지수',
         desc: '경기 상황에서 긴장 속에서도 플레이 흐름을 유지하는 능력입니다.',
         football: '축구에서는 실수 직후, 강한 압박을 받을 때, 경기 템포가 빨라질 때 흔들리지 않는지를 보는 지표입니다.',
         strengthen: [
@@ -731,7 +720,7 @@
         ]
       },
       psychology: {
-        name: '심리 안정성',
+        name: '심리 안정성 지수',
         desc: '감정 변화와 스트레스 속에서도 마음의 균형을 찾는 능력입니다.',
         football: '축구에서는 실점 직후, 벤치 반응이 신경 쓰일 때, 경기 전 불안이 높을 때 정서적 흔들림을 얼마나 다루는지를 봅니다.',
         strengthen: [
@@ -741,7 +730,7 @@
         ]
       },
       independence: {
-        name: '평가 독립성',
+        name: '평가 독립성 지수',
         desc: '타인의 평가보다 자신의 기준으로 플레이를 유지하는 능력입니다.',
         football: '축구에서는 부모, 코치, 관중, 동료의 반응에 흔들리지 않고 내 역할과 플레이 원칙을 지키는지를 보는 지표입니다.',
         strengthen: [
@@ -751,13 +740,13 @@
         ]
       },
       srl: {
-        name: '자기조절 학습',
+        name: '자기조절 학습지수',
         desc: '훈련을 스스로 계획하고 개선하려는 학습 태도입니다.',
         football: '축구에서는 훈련 목표 설정, 보완 포인트 점검, 자신의 플레이를 돌아보고 다음 연습으로 연결하는 힘을 평가합니다.',
         strengthen: [
           '매 훈련 전 오늘의 목표 1개를 정하고 훈련 후 10초만 점검합니다.',
           '기억나는 장면 하나를 골라 다음 훈련의 보완 과제로 연결합니다.',
-          '“다음엔 어떻게 더 잘할까?”를 말로 정리하는 습관을 들입니다.'
+          '“다음엔 어떻게 더 잘할까?”를 말로 정리하는 습관을 들여 적응 시간을 줄입니다.'
         ]
       },
       imagery: {
@@ -781,17 +770,17 @@
         ]
       },
       resilience: {
-        name: '실패 회복력',
-        desc: '실수나 실패 이후 다시 집중 상태로 돌아오는 능력입니다.',
-        football: '축구에서는 패스 미스, 슈팅 실패, 볼 뺏김, 수비 실수 뒤에 표정과 움직임이 얼마나 빨리 회복되는지를 평가합니다.',
+        name: '실패 후 회복력 지수',
+        desc: '치명적인 실책이나 전황의 악화 등 거대한 실패 상황에 직면했을 때, 심리적 붕괴를 막고 팀의 중심축으로 빠르게 복귀하는 강인한 정신력입니다.',
+        football: '결정적인 실점 관여, 패배 직전의 위기, 심각한 경기력 저하 상황에서도 투지를 잃지 않고, 신체 에너지와 리더십을 경기 종료까지 유지하는 지표입니다.',
         strengthen: [
-          '실수 직후 사용할 회복 문장을 정합니다. 예: 괜찮아, 다음 공, 다시 시작.',
-          '실수한 뒤 5초 안에 반드시 하는 행동을 정합니다. 예: 즉시 압박, 복귀, 패스 길 열기.',
-          '경기 후 실패 장면 하나를 골라 자책 대신 “다음엔 이렇게”로 바꿔 말하는 연습을 합니다.'
+          '실패의 감정에 매몰되지 않도록 상황을 강제로 끊어내는 "멘탈 셧다운(Shutdown)" 훈련을 합니다. 예: 손목 테이핑을 만지며 "과거는 끝났다, 현재만 존재한다"고 암시.',
+          '큰 패배감 속에서도 즉시 실행 가능한 최우선 과제(Small Win)를 찾아 몸을 움직입니다. 예: 무조건적인 전력 질주로 수비 복귀, 동료에게 소리 높여 전술 지시.',
+          '경기 후 실패를 "성장을 위한 데이터"로 객관화하여 받아들이고, 자책감이 자신감을 갉아먹기 전에 다음을 위한 재정비 계획을 세웁니다.'
         ]
       },
       attitude: {
-        name: '훈련 태도',
+        name: '훈련 태도 지수',
         desc: '훈련에 대한 몰입과 지속적인 노력 태도입니다.',
         football: '축구에서는 힘든 훈련, 반복 훈련, 컨디션이 좋지 않은 날에도 기본 집중과 실행력을 유지하는지를 평가합니다.',
         strengthen: [
@@ -905,10 +894,16 @@
       });
     }
 
-    function getBestAndWeak(detail8) {
-      const entries = Object.entries(detail8);
-      const best = [...entries].sort((a, b) => b[1] - a[1])[0];
-      const weak = [...entries].sort((a, b) => a[1] - b[1])[0];
+    // 변경된 부분: 전체 13개 지표(core5 + detail8)에서 가장 돋보이는/부족한 영역 도출
+    function getBestAndWeak(data) {
+      const allMetrics = [
+        ...Object.entries(data.core5).map(([key, score]) => ({ key, score, name: CORE_GUIDE[key].name })),
+        ...Object.entries(data.detail8).map(([key, score]) => ({ key, score, name: DETAIL_META[key].name }))
+      ];
+      
+      const sorted = [...allMetrics].sort((a, b) => b.score - a.score);
+      const best = sorted[0];
+      const weak = sorted[sorted.length - 1]; // 가장 점수가 낮은 지표
       return { best, weak };
     }
 
@@ -1017,16 +1012,16 @@
       document.getElementById('mindsetList').innerHTML = toHTML(mindset);
     }
 
-    function weakestGuideHTML(rank, key, score) {
-      const meta = DETAIL_META[key];
+    // 변경된 부분: 통합된 item 객체를 렌더링하도록 수정
+    function weakestGuideHTML(rank, item) {
+      const { name, football, strengthen, score } = item;
       const stage = getStage(score);
-      const tips = meta.strengthen || [];
       return `
         <div class="card p-4 mb-3">
           <div class="flex items-center justify-between mb-2 gap-3">
             <div>
               <div class="text-xs font-bold text-slate-400">보완 포인트 ${rank}</div>
-              <div class="text-lg font-bold text-slate-800">${meta.name}</div>
+              <div class="text-lg font-bold text-slate-800">${name}</div>
             </div>
             <div class="text-right">
               <div class="text-lg font-bold" style="color:${stage.color}">${score.toFixed(1)} / 6</div>
@@ -1038,30 +1033,50 @@
           </div>
           <div class="bg-amber-50 border border-amber-100 rounded-xl p-3 mb-3">
             <div class="text-[11px] font-bold text-amber-700 mb-1">아이의 시선에서 이해하기</div>
-            <p class="text-[12px] text-slate-700 leading-relaxed">${meta.football}</p>
+            <p class="text-[12px] text-slate-700 leading-relaxed">${football}</p>
           </div>
           <div class="bg-primary-50 border border-primary-100 rounded-xl p-3">
             <div class="text-[11px] font-bold text-primary-700 mb-2">멘탈 강화 방법</div>
             <div class="text-[12px] text-slate-700 space-y-1.5 leading-relaxed">
-              ${tips.map(t => `<p>• ${t}</p>`).join('')}
+              ${strengthen.map(t => `<p>• ${t}</p>`).join('')}
             </div>
           </div>
         </div>
       `;
     }
 
-    function renderWeakGuides(detail8) {
-      const weakestTwo = Object.entries(detail8).sort((a,b) => a[1] - b[1]).slice(0,2);
+    // 변경된 부분: core5와 detail8을 통합하여 가장 낮은 점수의 항목 2개를 선택
+    function renderWeakGuides(data) {
+      const allMetrics = [
+        ...Object.entries(data.core5).map(([key, score]) => ({
+          key, score,
+          name: CORE_GUIDE[key].name,
+          football: CORE_GUIDE[key].meaning, // 핵심지표는 축구특화 설명이 없으므로 기본 meaning 사용
+          strengthen: [CORE_GUIDE[key].improve] // 배열 형태로 변환
+        })),
+        ...Object.entries(data.detail8).map(([key, score]) => ({
+          key, score,
+          name: DETAIL_META[key].name,
+          football: DETAIL_META[key].football,
+          strengthen: DETAIL_META[key].strengthen
+        }))
+      ];
+
+      // 점수 기준 오름차순 정렬 후 최하위 2개 추출
+      const weakestTwo = allMetrics.sort((a, b) => a.score - b.score).slice(0, 2);
+      
       const container = document.getElementById('weakGuides');
-      container.innerHTML = weakestTwo.map(([key, score], idx) => weakestGuideHTML(idx + 1, key, score)).join('');
+      container.innerHTML = weakestTwo.map((item, idx) => weakestGuideHTML(idx + 1, item)).join('');
     }
 
     function generateReport() {
       const data = buildMentalData();
       const coreEntries = Object.entries(data.core5).map(([key, score]) => ({ key, name: CORE_GUIDE[key].name, score }));
-      const { best, weak } = getBestAndWeak(data.detail8);
-      const bestName = DETAIL_META[best[0]].name;
-      const weakName = DETAIL_META[weak[0]].name;
+      
+      // 변경된 부분: 전체 13개 지표 기반으로 베스트/워스트 선출
+      const { best, weak } = getBestAndWeak(data);
+      const bestName = best.name;
+      const weakName = weak.name;
 
       document.getElementById('dispName').innerText = data.name;
       document.getElementById('dispAge').innerText = ageText(data.birthDate, data.testDate);
@@ -1069,24 +1084,29 @@
       document.getElementById('dispTeam').innerText = data.team;
       document.getElementById('dispChartNo').innerText = data.chartNo;
       document.getElementById('dispDate').innerText = formatDate(data.testDate);
+      
       document.getElementById('kpiMgi').innerText = data.MGI.toFixed(1);
       document.getElementById('chipMgi').innerHTML = scoreChipHTML(data.MGI);
+      
       document.getElementById('topMetric').innerText = bestName;
-      document.getElementById('topMetricScore').innerText = `${best[1].toFixed(1)}점`;
+      document.getElementById('topMetricScore').innerText = `${best.score.toFixed(1)}점`;
       document.getElementById('supportMetric').innerText = weakName;
-      document.getElementById('supportMetricScore').innerText = `${weak[1].toFixed(1)}점`;
+      document.getElementById('supportMetricScore').innerText = `${weak.score.toFixed(1)}점`;
+      
       document.getElementById('summaryLine').innerText = data.memo;
       document.getElementById('mainComment').innerText = buildSummaryComment(data);
-      document.getElementById('strengthDirection').innerText = `${bestName} 쪽 강점이 보여, 이 부분을 훈련 루틴과 연결하면 더 큰 자산이 될 수 있습니다.`;
-      document.getElementById('supportDirection').innerText = `${weakName}은 조금 더 따뜻한 지지와 반복 연습이 필요한 영역입니다.`;
-      document.getElementById('parentMessage').innerText = `${data.name} 선수는 현재 ${bestName}에서 좋은 잠재력을 보이고 있습니다. 이 강점은 앞으로 훈련과 경기에서 큰 자산이 될 수 있습니다. 반면 ${weakName}은 조금 더 따뜻한 지지와 반복 연습이 필요한 영역입니다. 중요한 것은 '왜 아직 못하지?'가 아니라 '어떻게 도와주면 더 잘 자랄까?'라는 질문입니다. 아이는 이미 성장 중이고, 보호자의 시선은 그 성장의 방향을 정해 주는 바람이 됩니다.`;
+      document.getElementById('strengthDirection').innerText = `${bestName} 쪽 강점이 보이며, 이 부분을 훈련 루틴과 연결하면 장기적으로 더 큰 자산이 될 수 있습니다.`;
+      document.getElementById('supportDirection').innerText = `${weakName}은 조금 더 따뜻한 응원과 보완이 필요한 영역입니다.`;
+      document.getElementById('parentMessage').innerText = `${data.name} 선수는 현재 ${bestName}에서 좋은 잠재력을 보이고 있습니다. 이 강점은 앞으로 훈련과 경기에서 큰 자산이 될 수 있습니다. 반면 ${weakName}은 조금 더 따뜻한 응원과 보완이 필요한 영역입니다. 중요한 것은 '왜 아직 멘탈이 약하지?'가 아니라 '어떻게 도와주면 더 선수로서 더 단단해질까?'라는 질문입니다. 아이는 아직 성장 중이고, 부모님의 역할이 그 성장의 방향을 함께하는 단단한 디딤돌이 될 때 함께 더 멀리까지 갈 수 있습니다.`;
 
       drawRadar(coreEntries);
       renderCoreQuickGrid(coreEntries);
       renderCoreCards(coreEntries);
       renderDetailPages(data.detail8);
       renderLists(weakName);
-      renderWeakGuides(data.detail8);
+      
+      // 변경된 부분: 전체 데이터 객체를 넘겨서 13개 지표를 대상으로 렌더링
+      renderWeakGuides(data);
     }
 
     document.addEventListener('DOMContentLoaded', () => {
